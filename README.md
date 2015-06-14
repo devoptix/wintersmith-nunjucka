@@ -34,4 +34,12 @@ so if your filter is in './filters/myfirstfilter.js' add a  nunjucks section lik
 }
 ```
 
+OR
+
+```javascript
+"nunjucks": {  
+    "filterfile": "nunjucks.filters.js"
+}
+```
+
 It will be available in your templates at 'myfirstfilter'
