@@ -1,7 +1,7 @@
 {
   "name": "wintersmith-nunjucka",
   "preferGlobal": "true",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "author": "Wayne Bloss <waynebloss@gmail.com>",
   "description": "A new Nunjucks templates for Wintersmith",
   "main": "index.js",
