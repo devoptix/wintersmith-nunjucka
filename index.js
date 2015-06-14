@@ -19,7 +19,7 @@ module.exports = function(env, callback) {
       });
     }
     if(env.config.nunjucks.filterfile) {
-      filters = env.loadModule(env.resolvePath(file), true);
+      filters = env.loadModule(env.resolvePath(env.config.nunjucks.filterfile), true);
       for (filterName in filters)
         nenv.addFilter(filterName, filters[filterName]);
     }
