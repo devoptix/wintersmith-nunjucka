@@ -75,4 +75,4 @@ module.exports = function(str, opt) {
 }
 ```
 
-and the `myfirstfilter` will be available in your Nunjucks templates for use like this: {{ somedata|myfirstfilter
+and the `myfirstfilter` will be available in your Nunjucks templates for use like this: `{{ somedata|myfirstfilter }}`
