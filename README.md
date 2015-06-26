@@ -23,9 +23,40 @@ From the nunjucks documentation at https://mozilla.github.io/nunjucks/templating
 
 For more information on how to write customer Filters, take a look at the API documentation page at: http://mozilla.github.io/nunjucks/api#Registering-custom-filters
 
-To use customer filters with wintersmith, put the filter in its own file stored in a filters directory. The filename has to be the name of the filter + '.js'.
+### To add a single file with multiple filter functions
 
-so if your filter is in './filters/myfirstfilter.js' add a  nunjucks section like this to your config.json:
+Configure "nunjucks" like this in your wintersmith config file:
+
+```javascript
+"nunjucks": {  
+    "filterfile": "nunjucks.filters.js"
+}
+```
+
+Then create a file called "nunjucks.filters.js" and place it in the same directory as your wintersmith config file with the following contents:
+
+```javascript
+// Contents of nunjucks.filters.js
+
+function or(str, defaultValue) {
+  return str || defaultValue;
+}
+exports.or = or;
+
+exports.other = function(str, defaultValue) { return "something else"; };
+
+// ... This is basically just a normal Node.js module that exports functions,
+// however the functions all follow the Nunjucks filter function declaration style.
+// See https://mozilla.github.io/nunjucks/api.html#custom-filters
+```
+
+Now you can use the `or` and `other` filters in your Nunjucks template files like this: `{{ mydata|or('default data value') }}`
+
+### To add a single directory with multiple single-function files
+
+Create a filters directory and put each filter function in its own file, stored in a filters directory. The filename has to be the name of the filter + '.js'.
+
+Configure "nunjucks" like this in your wintersmith config file:
 
 ```javascript
 "nunjucks": {  
@@ -34,12 +65,14 @@ so if your filter is in './filters/myfirstfilter.js' add a  nunjucks section lik
 }
 ```
 
-OR
+Then create a file './filters/myfirstfilter.js' with something like the following contents:
 
 ```javascript
-"nunjucks": {  
-    "filterfile": "nunjucks.filters.js"
+// Contents of myfirstfilter.js
+
+module.exports = function(str, opt) {
+  return "This filter adds something to your str: " + str;
 }
 ```
 
-It will be available in your templates at 'myfirstfilter'
+and the `myfirstfilter` will be available in your Nunjucks templates for use like this: {{ somedata|myfirstfilter
